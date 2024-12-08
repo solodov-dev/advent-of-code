@@ -1,0 +1,1 @@
+export default (line) => line.split(',').flatMap((range) => range.split('-')).map(Number);
