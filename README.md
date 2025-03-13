@@ -1,1 +1,2 @@
-# advent-2024-haskell
+# Advent of Code
+
