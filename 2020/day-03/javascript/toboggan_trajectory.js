@@ -1,13 +1,16 @@
+import { run } from "../../../utils/javascript/index.js";
+
 const countTrees = (input, down, right) => {
+  const lines = input.split('\n');
   let rightOffset = 0;
   let downOffset = 0;
   let trees = 0;
 
-  while (downOffset < input.length) {
-    if (input[downOffset][rightOffset] === '#') trees++;
+  while (downOffset < lines.length) {
+    if (lines[downOffset][rightOffset] === '#') trees++;
     rightOffset += right;
-    if (rightOffset >= input[downOffset].length)
-      rightOffset -= input[downOffset].length;
+    if (rightOffset >= lines[downOffset].length)
+      rightOffset -= lines[downOffset].length;
     downOffset += down;
   }
 
@@ -21,6 +24,6 @@ const product = (file) =>
     [1, 5],
     [1, 7],
     [2, 1],
-  ].reduce((acc, cur) => countTrees(file, cur[0], cur[1]) * acc, 1);
+  ].reduce((acc, [down, right]) => countTrees(file, down, right) * acc, 1);
 
-export { countTrees, product };
+run((input) => countTrees(input, 1, 3), product);

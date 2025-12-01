@@ -1,13 +1,15 @@
-const validatePasswords = (passwords, validator) =>
-  passwords.filter(validator).length;
+import { run } from "../../../utils/javascript/index.js";
 
-const isValid = (record) => {
+const validatePasswords = (validator) =>
+  (passwords) => passwords.split('\n').filter(validator).length;
+
+const solution_1 = (record) => {
   const [min, max, char, password] = record.split(/-| |: /);
   const matches = password.match(new RegExp(char, 'g'));
   return matches && matches.length >= min && matches.length <= max;
 };
 
-const isValidNewPolicy = (record) => {
+const solution_2 = (record) => {
   const [min, max, char, password] = record.split(/-| |: /);
   const index1 = +min - 1;
   const index2 = +max - 1;
@@ -16,4 +18,4 @@ const isValidNewPolicy = (record) => {
     : password[index2] === char;
 };
 
-export { validatePasswords, isValid, isValidNewPolicy };
+run(validatePasswords(solution_1), validatePasswords(solution_2));

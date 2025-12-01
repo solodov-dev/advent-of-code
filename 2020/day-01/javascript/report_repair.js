@@ -1,23 +1,34 @@
-const sumTwo = (input, sum) => {
-  const set = parse(input);
-  set.delete(0);
+import { run } from '../../../utils/javascript/index.js';
+
+export const SUM = 2020;
+
+const findComplementProduct = (set, sum) => {
   for (let num of set) {
+    if (num === 0) continue;
+
     const complement = sum - num;
-    if (set.has(complement)) return [complement, num];
+    if (set.has(complement)) return complement * num;
   }
+}
+
+const makeSet = (input) => new Set(input.split('\n').map(Number));
+
+const solution_1 = (input) => {
+  const set = makeSet(input);
+  return findComplementProduct(set, SUM);
 };
 
-const sumThree = (input) => {
-  const set = parse(input);
+const solution_2 = (input) => {
+  const set = makeSet(input);
+
   for (let num of set) {
-    const sumOfTwo = 2020 - num;
-    const sum = sumTwo(input, sumOfTwo);
-    if (sum) return [...sum, num];
+    const sumOfTwo = SUM - num;
+
+    const complementProduct = findComplementProduct(set, sumOfTwo);
+
+    if (complementProduct) return complementProduct * num;
   }
 };
 
-const parse = (input) => new Set(input.map((n) => +n));
+run(solution_1, solution_2);
 
-const multiply = (arr) => arr.reduce((acc, cur) => acc * cur);
-
-export { sumTwo, sumThree, multiply };
